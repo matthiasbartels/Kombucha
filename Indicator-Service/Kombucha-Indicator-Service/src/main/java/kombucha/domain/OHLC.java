@@ -12,6 +12,15 @@ public class OHLC {
 	private BigDecimal close;
 	private Date date;
 	
+	public OHLC(String symbol, Date date, BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close) {
+		this.date = date;
+		this.symbol = symbol;
+		this.open = open;
+		this.high = high;
+		this.low = low;
+		this.close = close;
+	}
+	
 	public Date getDate() {
 		return date;
 	}
