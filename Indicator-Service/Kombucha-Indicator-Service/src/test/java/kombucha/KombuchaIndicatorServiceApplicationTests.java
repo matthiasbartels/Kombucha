@@ -1,4 +1,6 @@
-package demo;
+package kombucha;
+
+import kombucha.KombuchaIndicatorServiceApplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
