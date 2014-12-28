@@ -53,17 +53,17 @@ public class MovingAverageIndicator implements Indicator {
 	}
 
 	private Signal determineSignal(OHLC ohlc, double currentMovingAverage) {
-		System.out.println(ohlc.getClose() + ": " + currentMovingAverage);
 		Signal determinedSignal = null;
 //		double currentMovingAverage = movingAverage.getYValue(0, period-1);
 		Direction currentDirectionForSymbol = currentDirection.get(ohlc.getSymbol());
 		if (currentDirectionForSymbol == null) {
 			currentDirectionForSymbol = newDirection(ohlc, currentMovingAverage);
-			determinedSignal = new Signal(ohlc.getDate(), currentDirectionForSymbol, ohlc, new BigDecimal(currentMovingAverage));
+			determinedSignal = new Signal(ohlc.getDate(), currentDirectionForSymbol, ohlc, description(), new BigDecimal(currentMovingAverage));
 		} else {
 			Direction newDirection = newDirection(ohlc, currentMovingAverage);
 			if (newDirection != currentDirectionForSymbol) {
-				determinedSignal = new Signal(ohlc.getDate(), newDirection, ohlc, new BigDecimal(currentMovingAverage));
+				currentDirectionForSymbol = newDirection;
+				determinedSignal = new Signal(ohlc.getDate(), newDirection, ohlc, description(), new BigDecimal(currentMovingAverage));
 			} 
 		}
 		currentDirection.put(ohlc.getSymbol(), currentDirectionForSymbol);
@@ -115,6 +115,11 @@ public class MovingAverageIndicator implements Indicator {
 		if (ohlcEvents.size() > period) {
 			ohlcEvents.remove(0);
 		}
+	}
+
+	@Override
+	public String description() {
+		return period + " Days Moving Average";
 	}
 
 }

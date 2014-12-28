@@ -1,6 +1,7 @@
 package kombucha.domain;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OHLC {
@@ -58,5 +59,13 @@ public class OHLC {
 		this.close = close;
 	}
 
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		return sdf.format(date) 
+				+ "|" + open
+				+ "|" + high
+				+ "|" + low
+				+ "|" + close;
+	}
 
 }

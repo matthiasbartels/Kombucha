@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Store the history of each message -->
+	<int:message-history/>
+
+	<!-- intercept and log every message -->
+    <int:logging-channel-adapter id="logger" level="ERROR"/>
+    <int:wire-tap channel = "logger" />
+
+	<int:publish-subscribe-channel id="ohlc-quotes">
+	</int:publish-subscribe-channel>
+
+	<int:service-activator id="8dayMA-Activtator" input-channel="ohlc-quotes" ref="8dayMA" method="consume" output-channel="signals">
+	</int:service-activator>
+	
+	<int:service-activator id="20dayMA-Activtator" input-channel="ohlc-quotes" ref="20dayMA" method="consume" output-channel="signals">
+	</int:service-activator>
+	
+	<int:service-activator id="50dayMA-Activtator" input-channel="ohlc-quotes" ref="50dayMA" method="consume" output-channel="signals">
+	</int:service-activator>
+	
+	<int:service-activator id="200dayMA-Activtator" input-channel="ohlc-quotes" ref="200dayMA" method="consume" output-channel="signals">
+	</int:service-activator>
+
+	<int:channel id="signals">
+	</int:channel>
+	
+	<int:service-activator id="sysoutActivator" input-channel="signals" ref="writeSignal" method="writeSignalToSysout">
+	</int:service-activator>
+	
+	<bean id="8dayMA" class="kombucha.indicators.movingaverage.MovingAverageIndicator">
+		<constructor-arg name="period" value="8"></constructor-arg>
+	</bean>
+
+	<bean id="20dayMA" class="kombucha.indicators.movingaverage.MovingAverageIndicator">
+		<constructor-arg name="period" value="20"></constructor-arg>
+	</bean>
+	
+	<bean id="50dayMA" class="kombucha.indicators.movingaverage.MovingAverageIndicator">
+		<constructor-arg name="period" value="50"></constructor-arg>
+	</bean>
+	
+	<bean id="200dayMA" class="kombucha.indicators.movingaverage.MovingAverageIndicator">
+		<constructor-arg name="period" value="200"></constructor-arg>
+	</bean>
+
+	<bean id="writeSignal" class="kombucha.testutils.WriteSignalToSysout">
+	</bean>
+
+</beans>

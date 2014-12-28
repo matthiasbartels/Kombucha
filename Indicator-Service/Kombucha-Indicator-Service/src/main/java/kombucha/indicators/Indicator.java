@@ -11,5 +11,11 @@ public interface Indicator {
 	 * 
 	 */
 	public Signal consume(OHLC ohlc);
-
+	
+	/**
+	 * Each indicator has to describe itself.
+	 * 
+	 */
+	public String description();
+	
 }
