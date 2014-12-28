@@ -53,6 +53,7 @@ public class MovingAverageIndicator implements Indicator {
 	}
 
 	private Signal determineSignal(OHLC ohlc, double currentMovingAverage) {
+		System.out.println(ohlc.getClose() + ": " + currentMovingAverage);
 		Signal determinedSignal = null;
 //		double currentMovingAverage = movingAverage.getYValue(0, period-1);
 		Direction currentDirectionForSymbol = currentDirection.get(ohlc.getSymbol());
