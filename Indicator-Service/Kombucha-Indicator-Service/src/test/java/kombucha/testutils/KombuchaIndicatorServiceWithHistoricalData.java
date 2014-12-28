@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({"/integration/test_data_integration.xml", "/integration/integration.xml"})
 public class KombuchaIndicatorServiceWithHistoricalData {
 	
+	//FIXME: Warum kommen so viele Errors im Log?
     public static void main(String[] args) {
         SpringApplication.run(KombuchaIndicatorServiceWithHistoricalData.class, args);
     }
