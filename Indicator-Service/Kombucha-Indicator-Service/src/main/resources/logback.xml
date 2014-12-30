@@ -10,17 +10,18 @@
 	<appender name="file" class="ch.qos.logback.core.FileAppender">
 		<file>log/test.log</file>
 		<encoder>
-			<pattern>%date %5level [%thread] %40.40class:%4line - %message%n</pattern>
+			<pattern>%date %5level [%thread] %40.40class:%4line - %message%n %ex%n</pattern>
 		</encoder>
 	</appender>
 
-	<root level="info">
+	<root level="error">
 		<!-- <appender-ref ref="console" />   -->
 		<appender-ref ref="file" />
 	</root>
 
 	<logger name="org.hibernate" level="warn" />
 	<logger name="org.springframework" level="info" />
+	<logger name="org.springframework.integration" level="info" />
 	
 
 </configuration>

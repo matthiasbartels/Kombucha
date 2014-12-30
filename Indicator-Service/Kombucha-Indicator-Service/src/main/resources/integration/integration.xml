@@ -12,7 +12,7 @@
 	<int:message-history/>
 
 	<!-- intercept and log every message -->
-    <int:logging-channel-adapter id="logger" level="ERROR"/>
+    <int:logging-channel-adapter id="logger" level="DEBUG"/>
     <int:wire-tap channel = "logger" />
 
 	<int:publish-subscribe-channel id="ohlc-quotes">
